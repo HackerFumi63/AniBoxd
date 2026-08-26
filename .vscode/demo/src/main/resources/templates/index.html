@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AniLog</title>
+
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <h1>AniLog</h1>
+            <span>Anime Tracker</span>
+        </div>
+
+        <nav>
+            <a href="#" class="active">Library</a>
+            <a href="#">Stats</a>
+            <a href="#">Discover</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div>
+                <p class="eyebrow">YOUR ANIME LIBRARY</p>
+
+                <h2>Track every story you've watched.</h2>
+
+                <p class="hero-description">
+                    Keep track of what you're watching, what you've completed,
+                    and everything still waiting in your backlog.
+                </p>
+            </div>
+
+            <button class="add-button">
+                + Add Anime
+            </button>
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <p>Total Anime</p>
+                <h3>42</h3>
+            </article>
+
+            <article class="stat-card">
+                <p>Completed</p>
+                <h3>29</h3>
+            </article>
+
+            <article class="stat-card">
+                <p>Watching</p>
+                <h3>6</h3>
+            </article>
+
+            <article class="stat-card">
+                <p>Episodes Watched</p>
+                <h3>1,247</h3>
+            </article>
+
+        </section>
+
+
+        <!-- Library Controls -->
+        <section class="library-header">
+
+            <div>
+                <h2>My Anime</h2>
+                <p>Your current anime collection</p>
+            </div>
+
+            <div class="controls">
+
+                <input
+                    type="text"
+                    placeholder="Search anime..."
+                    id="search-input"
+                >
+
+                <select id="status-filter">
+                    <option value="all">All Statuses</option>
+                    <option value="watching">Watching</option>
+                    <option value="completed">Completed</option>
+                    <option value="planning">Planning</option>
+                    <option value="dropped">Dropped</option>
+                </select>
+
+            </div>
+
+        </section>
+
+
+                <!-- Anime Grid -->
+        <section class="anime-grid" id="anime-list">
+            <!-- This loops through your Java array list and builds each card dynamically -->
+            <article class="anime-card" th:each="anime : ${animes}">
+                <div class="anime-poster placeholder">
+                    <span>Poster</span>
+                </div>
+                <div class="anime-info">
+                    <div class="anime-title-row">
+                        <h3 th:text="${anime.title}">Anime Title</h3>
+                        <span th:class="'status ' + ${anime.status}" th:text="${#strings.capitalize(anime.status)}">Status</span>
+                    </div>
+                    <p class="anime-meta" th:text="${anime.genre}">Genre</p>
+                    <div class="progress-section">
+                        <div class="progress-label">
+                            <span>Episodes</span>
+                            <span><span th:text="${anime.watchedEpisodes}">0</span> / <span th:text="${anime.totalEpisodes}">0</span></span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" th:style="'width: ' + ${anime.progressPercentage} + '%;'"></div>
+                        </div>
+                    </div>
+                    <div class="anime-footer">
+                        <span th:text="${anime.rating}">★ 0 / 10</span>
+                        <button class="small-button">View</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <!-- Add Anime Modal Skeleton -->
+    <div class="modal-overlay hidden" id="anime-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Anime</h2>
+                <button class="close-button" type="button"> × </button>
+            </div>
+            <!-- Java Action Mapping added here -->
+            <form id="anime-form" th:action="@{/add}" method="POST">
+                <label for="title"> Title </label>
+                <input type="text" id="title" name="title" placeholder="Anime title" required>
+                
+                <label for="genre"> Genre </label>
+                <input type="text" id="genre" name="genre" placeholder="e.g. Action, Sci-Fi" required>
+
+                <label for="status"> Status </label>
+                <select id="status" name="status">
+                    <option value="planning">Planning</option>
+                    <option value="watching">Watching</option>
+                    <option value="completed">Completed</option>
+                    <option value="dropped">Dropped</option>
+                </select>
+
+                <div class="form-row">
+                    <div>
+                        <label for="episodes-watched"> Episodes Watched </label> <input type="number" id="episodes-watched" name="watchedEpisodes" min="0" value="0">
+                    </div>
+                    <div>
+                        <label for="total-episodes"> Total Episodes </label>
+                        <input type="number" id="total-episodes" name="totalEpisodes" min="1" value="12">
+                    </div>
+                </div>
+
+                <label for="score"> Score </label>
+                <input type="text" id="score" name="rating" placeholder="e.g. ★ 9 / 10" value="Not Rated">
+
+                <button type="submit" class="submit-button"> Add to Library </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Small UI script stays for opening/closing the overlay dialog -->
+    <script>
+        const modal = document.getElementById('anime-modal');
+        document.querySelector('.add-button').addEventListener('click', () => modal.classList.remove('hidden'));
+        document.querySelector('.close-button').addEventListener('click', () => modal.classList.add('hidden'));
+    </script>
+</body>
+</html>

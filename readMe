@@ -1,0 +1,46 @@
+1) start form your goal:
+	1) Why am i making this project ?
+	2) Who this project is for ?
+	3) What is going to make it valuable ?
+	- Write them down and think on them not just surface level problems
+2) Write down what the users must be able to do with the  project 
+	1) features
+	2) guardrails
+	3) don't overthink with tech stack etc only what features that is needed 
+	4) user centric approach
+3) Define the data models
+	1) don't think about the databases
+	2) think about the data what you need and how you want to handle it
+	3) draw the relationships
+4) Nail an MVP
+	1) Look back on all the features above and strip it to the barebones and what is needed to make it function : absolute minimum version
+5) Wireframe the project for the most basic user 
+	1) think more about UX than UI
+	2) paper is cheap but code is expensive
+6) Understand the future of the project:
+	1) Do you plan to add more features in the future
+	2) Do you plan to work on this for months or just a few days ?
+		1) don't over or under engineer
+7) How is you project going to be presented 
+	1) is it a script or a mobile app or a website or a extension
+	2) understand how the users will be interacting and base your architecture on that
+8) Tech Stack :
+	1) Use the points above to choose the tech stack
+	2) don't let the tech stack define the project 
+	3) best tool for the project not the other way round
+	4) Can you deploy this ?
+		1) is the tech stack you are choosing viable for deployment and easy to do so so that you don't spend your time more deploying that building
+9) The development process
+	1) Bare bones
+		1) Folder structure
+		2) naming conventions
+		3) dev environments
+		4) version control
+	2) setting up the database and creating the data models
+	3) backend routes :
+		1) API endpoints
+		2) test them
+	4) Frontend
+	5) Project integration and version
+	6) CI/CD
+	7) test at all steps
